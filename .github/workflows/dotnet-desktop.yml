@@ -22,38 +22,20 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore
 
-    - name: Build MGSShared
-      run: msbuild MGSShared/MGSShared.shproj /p:Configuration=Release
-
-    - name: Upload MGSShared artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: MGSShared-Build
-        path: '**/MGSShared/bin/Release/**/*.exe'
-
-    - name: Build DATSpeechTool
-      run: msbuild DATSpeechTool/DATSpeechTool.csproj /p:Configuration=Release
-
-    - name: Upload DATSpeechTool artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: DATSpeechTool-Build
-        path: '**/DATSpeechTool/bin/Release/**/*.exe'
+    - name: Build DATCodecTool
+      run: msbuild DATCodecTool/DATCodecTool.csproj /p:Configuration=Release
 
     - name: Build DATMovieTool
       run: msbuild DATMovieTool/DATMovieTool.csproj /p:Configuration=Release
 
-    - name: Upload DATMovieTool artifact
+    - name: Build DATSpeechTool
+      run: msbuild DATSpeechTool/DATSpeechTool.csproj /p:Configuration=Release
+
+    - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: DATMovieTool-Build
-        path: '**/DATMovieTool/bin/Release/**/*.exe'
-
-    - name: Build DATCodecTool
-      run: msbuild DATCodecTool/DATCodecTool.csproj /p:Configuration=Release
-
-    - name: Upload DATCodecTool artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: DATCodecTool-Build
-        path: '**/DATCodecTool/bin/Release/**/*.exe'
+        name: Built-Artifacts
+        path: |
+          DATCodecTool/bin/Release/
+          DATMovieTool/bin/Release/
+          DATSpeechTool/bin/Release/
